@@ -26,20 +26,13 @@ module Agents
 
     def default_options
       {
-        'type'       => 'message',
-        'app_id'     => '<BEEPER_APPLICATION_ID>',
-        'api_key'    => '<BEEPER_REST_API_KEY>',
-        'sender_id'  => '',
-        'phone'      => '',
-        'group_id'   => '',
-
-        'text'       => '{{title}}',
-        # TODO: discuss
-        # 'image'      => '{{url}}',
-        # 'start_time' => '',
-        # 'end_time'   => '',
-        # 'latitude'   => '',
-        # 'longitude'  => ''
+        'type'      => 'message',
+        'app_id'    => '<BEEPER_APPLICATION_ID>',
+        'api_key'   => '<BEEPER_REST_API_KEY>',
+        'sender_id' => '',
+        'phone'     => '',
+        'group_id'  => '',
+        'text'      => '{{title}}'
       }
     end
 
@@ -59,7 +52,7 @@ module Agents
 
 
       unless options['group_id'].blank? ^ options['phone'].blank?
-        errors.add(:base, "you need to specify a phone or group_id") # TODO: Change text
+        errors.add(:base, 'you need to specify a phone or group_id')
       end
     end
 
@@ -77,7 +70,7 @@ module Agents
       mo = interpolated(event)
       begin
         HTTParty.post(endpoint_for(mo['type']), body: payload_for(mo),
-          headers: credentials)
+          headers: headers)
       rescue HTTParty::Error  => e
         error(e.message)
       end
@@ -85,7 +78,7 @@ module Agents
 
     private
 
-    def credentials
+    def headers
       {
         'X-Beeper-Application-Id' => options['app_id'],
         'X-Beeper-REST-API-Key'   => options['api_key'],
