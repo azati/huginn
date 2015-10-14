@@ -4,6 +4,40 @@ module Agents
     cannot_be_scheduled!
     cannot_create_events!
 
+    description <<-MD
+      Beeper agent sends messages to Beeper app on your mobile device.
+
+      You need a Beeper Application ID (`app_id`), Beeper REST API Key (`api_key`) and Beeper Sender ID (`sender_id`) [https://beeper.io](https://beeper.io)
+
+      You have to provide phone number (`phone`) of the recipient which have a mobile device with Beeper installed, or a `group_id` – Beeper Group ID
+
+      Also you have to provide a message `type` which has to be `message`, `image`, `event`, `location` or `task`.
+
+      Depending on message type you have to provide additional fields:
+
+      ##### Message
+      * `text` – **required**
+
+      ##### Image
+      * `image` – **required** (Image URL or Base64-encoded image)
+      * `text` – optional
+
+      ##### Event
+      * `text` – **required**
+      * `start_time` – **required** (Corresponding to ISO 8601)
+      * `end_time` – optional (Corresponding to ISO 8601)
+
+      ##### Location
+      * `latitude` – **required**
+      * `longitude` – **required**
+      * `text` – optional
+
+      ##### Task
+      * `text` – **required**
+
+      You can see additional documentation at [Beeper website](https://beeper.io/docs)
+    MD
+
     API_BASE = 'https://api.beeper.io/api'.freeze
 
     TYPE_TO_ATTRIBUTES = {
