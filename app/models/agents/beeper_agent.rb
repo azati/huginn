@@ -31,7 +31,6 @@ module Agents
         'api_key'   => '<BEEPER_REST_API_KEY>',
         'sender_id' => '',
         'phone'     => '',
-        'group_id'  => '',
         'text'      => '{{title}}'
       }
     end
